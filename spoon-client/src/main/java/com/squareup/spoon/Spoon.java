@@ -1,9 +1,11 @@
 package com.squareup.spoon;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -42,7 +44,7 @@ public final class Spoon {
    * @param tag Unique tag to further identify the screenshot. Must match [a-zA-Z0-9_-]+.
    * @return the image file that was created
    */
-  public static File screenshot(Activity activity, String tag) {
+  public static File screenshot(Activity activity, Instrumentation instrumentation, String tag) {
     if (!TAG_VALIDATION.matcher(tag).matches()) {
       throw new IllegalArgumentException("Tag must match " + TAG_VALIDATION.pattern() + ".");
     }
@@ -50,7 +52,12 @@ public final class Spoon {
       File screenshotDirectory = obtainScreenshotDirectory(activity);
       String screenshotName = System.currentTimeMillis() + NAME_SEPARATOR + tag + EXTENSION;
       File screenshotFile = new File(screenshotDirectory, screenshotName);
-      takeScreenshot(screenshotFile, activity);
+      if (Build.VERSION.SDK_INT < 18) {
+        takeScreenshot(screenshotFile, activity);
+      }
+      else {
+        SpoonCompatJellyBeanMR2.takeScreenshot(instrumentation, screenshotFile);
+      }
       Log.d(TAG, "Captured screenshot '" + tag + "'.");
       return screenshotFile;
     } catch (Exception e) {

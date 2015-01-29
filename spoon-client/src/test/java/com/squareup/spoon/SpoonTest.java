@@ -70,7 +70,7 @@ public class SpoonTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void invalidTagThrowsException() {
-    Spoon.screenshot(null, "!@#$%^&*()");
+    Spoon.screenshot(null, null, "!@#$%^&*()");
   }
 
   private static class StackTraceBuilder {
