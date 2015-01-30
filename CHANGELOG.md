@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+Version 1.1.3-EXP *(2015-01-30)*
+--------------------------------
+
+ * Better screenshots on JellyBean_MR2 and newer devices using UiAutomation
+ * Add ability to specify to run tests for an entire java package (see `--package-name` command-line argument)
+ * Fix: Can now retrieve screenshots from Lollipop devices
+ * From 1.1.3 (official): prettifying of method names works even if method name does not start with 'test'
+
 Version 1.1.2 *(2014-11-07)*
 ----------------------------
 
