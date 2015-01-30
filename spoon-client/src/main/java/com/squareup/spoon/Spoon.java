@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,7 +18,6 @@ import java.io.OutputStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
 
-import static android.content.Context.MODE_WORLD_READABLE;
 import static android.graphics.Bitmap.CompressFormat.PNG;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 import static com.squareup.spoon.Chmod.chmodPlusR;
@@ -113,7 +113,8 @@ public final class Spoon {
   }
 
   private static File obtainScreenshotDirectory(Context context) throws IllegalAccessException {
-    File screenshotsDir = context.getDir(SPOON_SCREENSHOTS, MODE_WORLD_READABLE);
+    File screenshotsDir = new File(Environment.getExternalStorageDirectory(),
+        SPOON_SCREENSHOTS + "/" + context.getApplicationInfo().packageName);
 
     synchronized (LOCK) {
       if (outputNeedsClear) {

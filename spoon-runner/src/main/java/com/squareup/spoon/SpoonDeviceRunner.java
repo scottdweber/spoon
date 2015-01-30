@@ -224,16 +224,16 @@ public final class SpoonDeviceRunner {
       logDebug(debug, "About to grab screenshots and prepare output for [%s]", serial);
 
       // Sync device screenshots, if any, to the local filesystem.
-      String dirName = "app_" + SPOON_SCREENSHOTS;
+      String rootDirName = device.getMountPoint(IDevice.MNT_EXTERNAL_STORAGE);
       String localDirName = work.getAbsolutePath();
-      final String devicePath = "/data/data/" + appPackage + "/" + dirName;
+      final String devicePath = rootDirName + "/" + SPOON_SCREENSHOTS + "/" + appPackage;
       FileEntry deviceDir = obtainDirectoryFileEntry(devicePath);
       logDebug(debug, "Pulling screenshots from [%s] %s", serial, devicePath);
 
       device.getSyncService()
           .pull(new FileEntry[] {deviceDir}, localDirName, SyncService.getNullProgressMonitor());
 
-      File screenshotDir = new File(work, dirName);
+      File screenshotDir = new File(work, appPackage);
       if (screenshotDir.exists()) {
         imageDir.mkdirs();
 
