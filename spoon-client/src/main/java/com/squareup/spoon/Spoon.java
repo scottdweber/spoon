@@ -45,8 +45,8 @@ public final class Spoon {
    * @return the image file that was created
    */
   public static File screenshot(Activity activity, Instrumentation instrumentation, String tag) {
-	StackTraceElement testClass = findTestClassTraceElement(Thread.currentThread().getStackTrace());
-	return getScreenshot(activity, instrumentation, tag, testClass);
+    StackTraceElement testClass = findTestClassTraceElement(Thread.currentThread().getStackTrace());
+    return getScreenshot(activity, instrumentation, tag, testClass);
   }
 
   /** Overload method with extra testClass parameters to get screenshot on failure */
@@ -55,24 +55,23 @@ public final class Spoon {
   }
 
   private static File getScreenshot(Activity activity, Instrumentation instrumentation, String tag, StackTraceElement testClass){
-	if (!TAG_VALIDATION.matcher(tag).matches()) {
-	  throw new IllegalArgumentException("Tag must match " + TAG_VALIDATION.pattern() + ".");
+    if (!TAG_VALIDATION.matcher(tag).matches()) {
+      throw new IllegalArgumentException("Tag must match " + TAG_VALIDATION.pattern() + ".");
     }
     try {
-	  File screenshotDirectory = obtainScreenshotDirectory(activity, testClass);
-	  String screenshotName = System.currentTimeMillis() + NAME_SEPARATOR + tag + EXTENSION;
-	  File screenshotFile = new File(screenshotDirectory, screenshotName);
-	  if (Build.VERSION.SDK_INT < 18) {
-		  takeScreenshot(screenshotFile, activity);
-	  }
-	  else {
-		  SpoonCompatJellyBeanMR2.takeScreenshot(instrumentation, screenshotFile);
-	  }
-	  Log.d(TAG, "Captured screenshot '" + tag + "'.");
-	  return screenshotFile;
+      File screenshotDirectory = obtainScreenshotDirectory(activity, testClass);
+      String screenshotName = System.currentTimeMillis() + NAME_SEPARATOR + tag + EXTENSION;
+      File screenshotFile = new File(screenshotDirectory, screenshotName);
+      if (Build.VERSION.SDK_INT < 18) {
+        takeScreenshot(screenshotFile, activity);
+      } else {
+        SpoonCompatJellyBeanMR2.takeScreenshot(instrumentation, screenshotFile);
+      }
+      Log.d(TAG, "Captured screenshot '" + tag + "'.");
+      return screenshotFile;
     } catch (Exception e) {
-	  throw new RuntimeException("Unable to capture screenshot.", e);
-	  }
+      throw new RuntimeException("Unable to capture screenshot.", e);
+    }
   }
 
   private static void takeScreenshot(File file, final Activity activity) throws IOException {
@@ -123,16 +122,16 @@ public final class Spoon {
   }
 
   private static File obtainScreenshotDirectory(Context context, StackTraceElement testClass) throws IllegalAccessException {
-	File screenshotsDir = new File(Environment.getExternalStorageDirectory(),
-	  SPOON_SCREENSHOTS + "/" + context.getApplicationInfo().packageName);
+    File screenshotsDir = new File(Environment.getExternalStorageDirectory(),
+        SPOON_SCREENSHOTS + "/" + context.getApplicationInfo().packageName);
 
-	synchronized (LOCK) {
-	  if (outputNeedsClear) {
-		  deletePath(screenshotsDir, false);
-		  outputNeedsClear = false;
-	  }
+    synchronized (LOCK) {
+      if (outputNeedsClear) {
+        deletePath(screenshotsDir, false);
+        outputNeedsClear = false;
+      }
     }
-  	String className = testClass.getClassName().replaceAll("[^A-Za-z0-9._-]", "_");
+    String className = testClass.getClassName().replaceAll("[^A-Za-z0-9._-]", "_");
     File dirClass = new File(screenshotsDir, className);
     File dirMethod = new File(dirClass, testClass.getMethodName());
     createDir(dirMethod);
