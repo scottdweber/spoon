@@ -64,7 +64,8 @@ public final class Spoon {
       File screenshotFile = new File(screenshotDirectory, screenshotName);
       if (Build.VERSION.SDK_INT < 18) {
         takeScreenshot(screenshotFile, activity);
-      } else {
+      }
+      else {
         SpoonCompatJellyBeanMR2.takeScreenshot(instrumentation, screenshotFile);
       }
       Log.d(TAG, "Captured screenshot '" + tag + "'.");
