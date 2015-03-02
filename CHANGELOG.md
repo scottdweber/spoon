@@ -1,10 +1,11 @@
 Change Log
 ==========
 
-Version 1.1.3-EXP *(2015-01-30)*
+Version 1.1.3-EXP *(2015-03-02)*
 --------------------------------
 
  * Better screenshots on JellyBean_MR2 and newer devices using UiAutomation
+ * Add screenshot method for taking screenshots after an Exception
  * Add ability to specify to run tests for an entire java package (see `--package-name` command-line argument)
  * Fix: Can now retrieve screenshots from Lollipop devices
  * From 1.1.3 (official): prettifying of method names works even if method name does not start with 'test'
