@@ -1,6 +1,7 @@
 package com.squareup.spoon;
 
 import com.android.ddmlib.AndroidDebugBridge;
+import com.android.ddmlib.CollectingOutputReceiver;
 import com.android.ddmlib.IDevice;
 import com.android.ddmlib.InstallException;
 import com.android.ddmlib.SyncService;
@@ -139,6 +140,7 @@ public final class SpoonDeviceRunner {
   }
 
   /** Execute instrumentation on the target device and return a result summary. */
+  @SuppressWarnings("checkstyle:methodlength")
   public DeviceResult run(AndroidDebugBridge adb) {
     String appPackage = instrumentationInfo.getApplicationPackage();
     String testPackage = instrumentationInfo.getInstrumentationPackage();
@@ -181,7 +183,6 @@ public final class SpoonDeviceRunner {
 
     // If this is Android Marshmallow or above grant WRITE_EXTERNAL_STORAGE
     if (Integer.parseInt(device.getProperty(IDevice.PROP_BUILD_API_LEVEL)) >= 23) {
-      String appPackage = instrumentationInfo.getApplicationPackage();
       try {
         CollectingOutputReceiver grantOutputReceiver = new CollectingOutputReceiver();
         device.executeShellCommand("pm grant " + appPackage
@@ -210,8 +211,7 @@ public final class SpoonDeviceRunner {
       runner.setMaxtimeToOutputResponse(adbTimeout);
       if (!Strings.isNullOrEmpty(packageName)) {
         runner.setTestPackageName(packageName);
-      }
-      else if (!Strings.isNullOrEmpty(className)) {
+      } else if (!Strings.isNullOrEmpty(className)) {
         if (Strings.isNullOrEmpty(methodName)) {
           runner.setClassName(className);
         } else {
