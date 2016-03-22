@@ -50,11 +50,13 @@ public final class Spoon {
   }
 
   /** Overload method with extra testClass parameters to get screenshot on failure */
-  public static File screenshot(Activity activity, Instrumentation instrumentation, String tag, StackTraceElement testClass) {
+  public static File screenshot(Activity activity, Instrumentation instrumentation,
+      String tag, StackTraceElement testClass) {
     return getScreenshot(activity, instrumentation, tag, testClass);
   }
 
-  private static File getScreenshot(Activity activity, Instrumentation instrumentation, String tag, StackTraceElement testClass){
+  private static File getScreenshot(Activity activity, Instrumentation instrumentation,
+      String tag, StackTraceElement testClass) {
     if (!TAG_VALIDATION.matcher(tag).matches()) {
       throw new IllegalArgumentException("Tag must match " + TAG_VALIDATION.pattern() + ".");
     }
@@ -64,8 +66,7 @@ public final class Spoon {
       File screenshotFile = new File(screenshotDirectory, screenshotName);
       if (Build.VERSION.SDK_INT < 18) {
         takeScreenshot(screenshotFile, activity);
-      }
-      else {
+      } else {
         SpoonCompatJellyBeanMR2.takeScreenshot(instrumentation, screenshotFile);
       }
       Log.d(TAG, "Captured screenshot '" + tag + "'.");
@@ -122,7 +123,8 @@ public final class Spoon {
     activity.getWindow().getDecorView().draw(canvas);
   }
 
-  private static File obtainScreenshotDirectory(Context context, StackTraceElement testClass) throws IllegalAccessException {
+  private static File obtainScreenshotDirectory(Context context,
+      StackTraceElement testClass) throws IllegalAccessException {
     File screenshotsDir = new File(Environment.getExternalStorageDirectory(),
         SPOON_SCREENSHOTS + "/" + context.getApplicationInfo().packageName);
 
