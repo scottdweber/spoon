@@ -17,4 +17,8 @@
     <module>app</module>
     <module>tests</module>
   </modules>
+  <properties>
+    <checkstyle.skip>true</checkstyle.skip>
+  </properties>
+
 </project>
