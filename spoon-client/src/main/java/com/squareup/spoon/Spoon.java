@@ -147,7 +147,13 @@ public final class Spoon {
       StackTraceElement element = trace[i];
       if (TEST_CASE_CLASS.equals(element.getClassName()) //
           && TEST_CASE_METHOD.equals(element.getMethodName())) {
-        return trace[i - 3];
+            // the way we now call this method it ends up with #screenshot as the folder name
+            // when using [i-3]
+            if (trace[i - 3].getMethodName().equals("screenshot")) {
+              return trace[i - 2];
+            } else {
+              return trace[i - 3];
+            }
       }
     }
 
