@@ -26,6 +26,7 @@
     <property name="message" value="Space needed around ':' character."/>
   </module>
 
+  <module name="SuppressWarningsFilter"/>
   <module name="TreeWalker">
     <property name="cacheFile" value="${checkstyle.cache.file}"/>
 
@@ -110,7 +111,6 @@
     <!--<module name="InnerAssignment"/>-->
     <!--module name="MagicNumber"/-->
     <module name="MissingSwitchDefault"/>
-    <module name="RedundantThrows"/>
     <module name="SimplifyBooleanExpression"/>
     <module name="SimplifyBooleanReturn"/>
 
@@ -129,5 +129,7 @@
     <!--module name="FinalParameters"/-->
     <!--module name="TodoComment"/-->
     <module name="UpperEll"/>
+
+    <module name="SuppressWarningsHolder" />
   </module>
 </module>

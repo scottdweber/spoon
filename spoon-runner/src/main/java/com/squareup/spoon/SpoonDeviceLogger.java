@@ -19,7 +19,7 @@ final class SpoonDeviceLogger implements LogCatListener {
   private final List<LogCatMessage> messages;
   private final LogCatReceiverTask logCatReceiverTask;
 
-  public SpoonDeviceLogger(IDevice device) {
+  SpoonDeviceLogger(IDevice device) {
     messages = new ArrayList<LogCatMessage>();
     logCatReceiverTask = new LogCatReceiverTask(device);
     logCatReceiverTask.addLogCatListener(this);

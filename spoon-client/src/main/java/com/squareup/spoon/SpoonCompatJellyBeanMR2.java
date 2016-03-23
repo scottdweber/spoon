@@ -16,24 +16,24 @@ import static com.squareup.spoon.Chmod.chmodPlusR;
 
 public class SpoonCompatJellyBeanMR2 {
 
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-	protected static void takeScreenshot(Instrumentation instrumentation, File file) throws IOException {
-		final Bitmap bitmap = instrumentation.getUiAutomation().takeScreenshot();
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+    protected static void takeScreenshot(Instrumentation instrumentation,
+        File file) throws IOException {
+        final Bitmap bitmap = instrumentation.getUiAutomation().takeScreenshot();
 
-		OutputStream fos = null;
-		try {
-			fos = new BufferedOutputStream(new FileOutputStream(file));
-			bitmap.compress(PNG, 100 /* quality */, fos);
+        OutputStream fos = null;
+        try {
+            fos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(PNG, 100 /* quality */, fos);
 
-			chmodPlusR(file);
-		}
-		finally {
-			bitmap.recycle();
-			if (fos != null) {
-				fos.close();
-			}
-		}
+            chmodPlusR(file);
+        } finally {
+            bitmap.recycle();
+            if (fos != null) {
+                fos.close();
+            }
+        }
 
-	}
+    }
 
 }
